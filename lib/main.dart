@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/theme_data.dart';
 
@@ -20,7 +21,7 @@ class _MyAppState extends State<MyApp> {
       routerConfig: AppRouter.router,
       title: "NotesApp",
       debugShowCheckedModeBanner: false,
-      theme: ThemeClass.darkTheme,
+      theme: ThemeClass.darkTheme.copyWith(textTheme: GoogleFonts.dmSansTextTheme(Theme.of(context).textTheme)) ,
     );
   }
 }
