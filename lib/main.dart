@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/utils/router.dart';
+import 'package:notes_app/utils/theme_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class _MyAppState extends State<MyApp> {
       routerConfig: AppRouter.router,
       title: "NotesApp",
       debugShowCheckedModeBanner: false,
-      
+      theme: ThemeClass.darkTheme,
     );
   }
 }
