@@ -18,12 +18,14 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
         title: const Text("Notes App", style: AppTextStyles.appTitle),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(AppConstants.kDefaultPadding),
+      body:  Padding(
+        padding: const EdgeInsets.all(AppConstants.kDefaultPadding),
         child: Column(
           children: [
-              Text("Hello",style: AppTextStyles.appTitle,)
-
+            const Text("Hello",style: AppTextStyles.appTitle,),
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+              )
           ],
         ),
       ),
@@ -34,11 +36,13 @@ class _HomePageState extends State<HomePage> {
             side: BorderSide(
               color: AppColors.kWhiteCardColor,
               width: 2,
+              
             )),
         child: const Icon(
           Icons.add,
           color: AppColors.kWhiteCardColor,
           size: 30,
+          
         ),
       ),
     );
