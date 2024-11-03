@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/data/item_model.dart';
 import 'package:notes_app/services/database_helper.dart';
 import 'package:notes_app/utils/colors.dart';
+import 'package:notes_app/utils/constants.dart';
 import 'package:notes_app/utils/text_styles.dart';
 
 class HomePage extends StatefulWidget {
@@ -70,23 +71,21 @@ class _HomePageState extends State<HomePage> {
         child: items.isEmpty
             ? SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: Center(
+                child: const Center(
                   child: Text(
                     "No notes available, click on the + button to add a new note",
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
-                      fontSize: 20,
-                    ),
+                    style: AppTextStyles.descriptionLargeStyle,
                     textAlign: TextAlign.center,
                   ),
                 ),
               )
             : GridView.builder(
-                padding: const EdgeInsets.all(16),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  crossAxisSpacing: AppConstants.kDefaultPadding,
+                  mainAxisSpacing: AppConstants.kDefaultPadding,
                   childAspectRatio: 6 / 4,
                 ),
                 itemCount: items.length,
