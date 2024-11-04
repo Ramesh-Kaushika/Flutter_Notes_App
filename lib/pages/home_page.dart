@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                         return NoteCard(
                           onTap: () {
                             // Navigate to DetailScreen with item data
-                            context.go('/detail', extra: item);
+                            context.push('/detail', extra: item);
                           },
                           noteTitle: item.title,
                           noteContent: item.description,
