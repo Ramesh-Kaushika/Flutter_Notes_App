@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes_app/pages/create_note_page.dart';
 import 'package:notes_app/pages/home_page.dart';
 import 'package:notes_app/pages/note_page.dart';
 
@@ -17,11 +18,18 @@ class AppRouter {
             return const HomePage();
           },
           ),
-          GoRoute(
+          // GoRoute(
+          // name: "create_note",
+          // path: "/create_note",
+          // builder:(context, state) {
+          //   return const NotePage();
+          // },
+          // ),
+           GoRoute(
           name: "create_note",
           path: "/create_note",
           builder:(context, state) {
-            return const NotePage();
+            return const CreateNotePage();
           },
           ),
 

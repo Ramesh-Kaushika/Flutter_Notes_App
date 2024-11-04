@@ -100,18 +100,17 @@ class _HomePageState extends State<HomePage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: AppConstants.kDefaultPadding,
                   mainAxisSpacing: AppConstants.kDefaultPadding,
-                  childAspectRatio: 6 / 4,
+                  childAspectRatio: 7 / 11,
                 ),
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   final item = items[index];
-                  return InkWell(
-                      onTap: () {},
-                      child: NoteCard(
-                          noteTitle: item.title,
-                          noteContent: item.description,
-                          removeNote: removeNote,
-                          editNote: editNote));
+                  return NoteCard(
+                    noteTitle: item.title,
+                    noteContent: item.description,
+                    removeNote: () => _deleteItem(item.id!),
+                    editNote:  () => _updateItem(item),
+                  );
                 },
               ),
       ),

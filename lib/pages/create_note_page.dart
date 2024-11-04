@@ -10,6 +10,10 @@ class CreateNotePage extends StatefulWidget {
 class _CreateNotePageState extends State<CreateNotePage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+       appBar: AppBar(
+              title: const Text("Create Note"),
+      ),
+    );
   }
 }

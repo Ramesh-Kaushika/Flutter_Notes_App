@@ -30,9 +30,11 @@ class _NoteCardState extends State<NoteCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
               IconButton(
-                onPressed: () {},
+              onPressed: widget.editNote,
                 icon:  Icon(
                   Icons.edit_outlined,
                   color: AppColors.kWhiteCardColor.withOpacity(0.5),
@@ -42,7 +44,7 @@ class _NoteCardState extends State<NoteCard> {
                 width: 10,
               ),
                IconButton(
-                onPressed: () {},
+               onPressed: widget.removeNote,
                 icon: Icon(
                   Icons.delete_outlined,
                   color: AppColors.kWhiteCardColor.withOpacity(0.5),

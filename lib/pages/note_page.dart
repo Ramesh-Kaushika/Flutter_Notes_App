@@ -12,7 +12,6 @@ class NotePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
               title: const Text("Note"),
-      
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppConstants.kDefaultPadding),
