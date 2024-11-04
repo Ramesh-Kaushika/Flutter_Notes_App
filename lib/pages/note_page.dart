@@ -20,7 +20,7 @@ class NotePage extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             const Text(
-              "KOHOMADA YALUWANEee",
+              "KOHOMADA YALUWANEeee",
               style: AppTextStyles.appTitle,
             ),
             const SizedBox(height: 5),
