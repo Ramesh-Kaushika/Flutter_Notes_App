@@ -3,7 +3,9 @@ import 'package:notes_app/data/item_model.dart';
 import 'package:notes_app/services/database_helper.dart';
 import 'package:notes_app/utils/colors.dart';
 import 'package:notes_app/utils/constants.dart';
+import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
+import 'package:notes_app/widgets/note_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -59,6 +61,18 @@ class _HomePageState extends State<HomePage> {
     _fetchItems();
   }
 
+  void _showItemDialog([Item? item]) {
+    if (item != null) {
+      titleController.text = item.title;
+      descriptionController.text = item.description;
+    } else {
+      titleController.clear();
+      descriptionController.clear();
+    }
+    //got to notes page
+    AppRouter.router.push("/create_note");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,36 +106,12 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   final item = items[index];
                   return InkWell(
-                    onTap: () {},
-                    child: Card(
-                      elevation: 3,
-                      color: Colors.blueAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.title,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              item.description,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                      onTap: () {},
+                      child: NoteCard(
+                          noteTitle: item.title,
+                          noteContent: item.description,
+                          removeNote: removeNote,
+                          editNote: editNote));
                 },
               ),
       ),

@@ -1,27 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/utils/colors.dart';
+import 'package:notes_app/utils/constants.dart';
+import 'package:notes_app/utils/text_styles.dart';
 
-class NotePage extends StatefulWidget {
+
+class NotePage extends StatelessWidget {
   const NotePage({super.key});
 
-  @override
-  State<NotePage> createState() => _NotePageState();
-}
-
-class _NotePageState extends State<NotePage> {
-
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       automaticallyImplyLeading: false,
-       leading: IconButton(onPressed: () {
-        //got to notes page
-       }, 
-       icon: const Icon(
-        Icons.arrow_back,
-       ) ),
+              title: const Text("Note"),
+      
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(AppConstants.kDefaultPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            const Text(
+              "KOHOMADA YALUWANE",
+              style: AppTextStyles.appTitle,
+            ),
+            const SizedBox(height: 5),
+            // Text(
+            //   formattedDate,
+            //   style: AppTextStyles.appDescriptionSmall.copyWith(
+            //     color: AppColors.kFabColor,
+            //   ),
+            // ),
+            const SizedBox(height: 20),
+            Text(
+              "Hello",
+              style: AppTextStyles.descriptionLargeStyle.copyWith(
+                color: AppColors.kWhiteCardColor.withOpacity(0.3),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
