@@ -1,6 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_app/data/item_model.dart';
+import 'package:notes_app/services/database_helper.dart';
 import 'package:notes_app/utils/colors.dart';
 import 'package:notes_app/utils/constants.dart';
+import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
 
 class CreateNotePage extends StatefulWidget {
@@ -11,20 +15,55 @@ class CreateNotePage extends StatefulWidget {
 }
 
 class _CreateNotePageState extends State<CreateNotePage> {
+  final DatabaseHelper dbHelper = DatabaseHelper();
+  List<Item> items = [];
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchItems();
+  }
+
+  Future<void> _fetchItems() async {
+    final List<Map<String, dynamic>> data = await dbHelper.fetchItems();
+    setState(() {
+      items = data.map((item) => Item.fromMap(item)).toList();
+    });
+  }
+
+  Future<void> _addItem() async {
+    //clear the form
+    if (kDebugMode) {
+      print("harida2");
+    }
+    final newItem = Item(
+      title: titleController.text,
+      description: descriptionController.text,
+    );
+    print("harida");
+    await dbHelper.insertItem(newItem.toMap());
+    titleController.clear();
+    descriptionController.clear();
+    _fetchItems();
+
+    AppRouter.router.push("/");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-              title: const Text("Create Note"),
+      appBar: AppBar(
+        title: const Text("Create Note"),
       ),
-       body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 30),
             Container(
               margin: const EdgeInsets.symmetric(
-                horizontal: 
-                AppConstants.kDefaultPadding / 2,
+                horizontal: AppConstants.kDefaultPadding / 2,
               ),
               child: Form(
                 // key: _formKey,
@@ -33,7 +72,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
                   children: [
                     // Note Title
                     TextFormField(
-                      // controller: _noteTitileController,
+                      controller: titleController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a title';
@@ -58,7 +97,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
 
                     // Note Content
                     TextFormField(
-                      // controller: _noteContentController,
+                      controller: descriptionController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a content';
@@ -101,39 +140,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
                             ),
                           ),
                           onPressed: () {
-                            //save the note
-                            // if (_formKey.currentState!.validate()) {
-                            //   try {
-                            //     final NoteService noteService = NoteService();
-                            //     noteService.addNote(
-                            //       Note(
-                            //         id: const Uuid().v4(),
-                            //         title: _noteTitileController.text,
-                            //         category: widget.isNewCategory
-                            //             ? _categoryController.text
-                            //             : category,
-                            //         content: _noteContentController.text,
-                            //         date: DateTime.now(),
-                            //       ),
-                            //     );
-                            //     //show a snackbar
-                            //     AppHelpers.showSnackBar(
-                            //       context,
-                            //       'Note saved successfully',
-                            //     );
-
-                            //     //clear the form
-                            //     _noteTitileController.clear();
-                            //     _noteContentController.clear();
-                            //     AppRouter.router.push("/notes");
-                            //   } catch (e) {
-                            //     //show a snackbar
-                            //     AppHelpers.showSnackBar(
-                            //       context,
-                            //       'Failed to save note',
-                            //     );
-                            //   }
-                            // }
+                            _addItem();
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(10),
