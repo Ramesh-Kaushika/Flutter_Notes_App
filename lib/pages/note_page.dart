@@ -5,7 +5,9 @@ import 'package:notes_app/utils/text_styles.dart';
 
 
 class NotePage extends StatelessWidget {
-  const NotePage({super.key});
+  final String title;
+  final String description;
+  const NotePage({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
