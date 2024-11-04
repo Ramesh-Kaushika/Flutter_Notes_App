@@ -13,7 +13,7 @@ class NotePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-              title: const Text("Note"),
+              title:  Text(title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppConstants.kDefaultPadding),
@@ -21,8 +21,8 @@ class NotePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            const Text(
-              "KOHOMADA YALUWANEeeeeeee",
+             Text(
+              title,
               style: AppTextStyles.appTitle,
             ),
             const SizedBox(height: 5),
@@ -34,7 +34,7 @@ class NotePage extends StatelessWidget {
             // ),
             const SizedBox(height: 20),
             Text(
-              "Hello",
+              description,
               style: AppTextStyles.descriptionLargeStyle.copyWith(
                 color: AppColors.kWhiteCardColor.withOpacity(0.3),
               ),
