@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notes_app/data/item_model.dart';
 import 'package:notes_app/services/database_helper.dart';
 import 'package:notes_app/utils/colors.dart';
@@ -113,6 +114,10 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         final item = items[index];
                         return NoteCard(
+                          onTap: () {
+                            // Navigate to DetailScreen with item data
+                            context.go('/detail', extra: item);
+                          },
                           noteTitle: item.title,
                           noteContent: item.description,
                           removeNote: () => _deleteItem(item.id!),
