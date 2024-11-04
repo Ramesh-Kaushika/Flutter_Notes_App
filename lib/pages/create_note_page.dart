@@ -19,6 +19,8 @@ class _CreateNotePageState extends State<CreateNotePage> {
   List<Item> items = [];
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  
+  
 
   @override
   void initState() {
@@ -34,21 +36,30 @@ class _CreateNotePageState extends State<CreateNotePage> {
   }
 
   Future<void> _addItem() async {
-    //clear the form
-    if (kDebugMode) {
-      print("harida2");
-    }
-    final newItem = Item(
-      title: titleController.text,
-      description: descriptionController.text,
-    );
-    print("harida");
-    await dbHelper.insertItem(newItem.toMap());
-    titleController.clear();
-    descriptionController.clear();
-    _fetchItems();
+      // Clear the form
+  if (kDebugMode) {
+    print("Adding item");
+  }
 
-    AppRouter.router.push("/");
+  final newItem = Item(
+    title: titleController.text,
+    description: descriptionController.text,
+  );
+
+  await dbHelper.insertItem(newItem.toMap());
+
+  // Clear the controllers after adding the item
+  titleController.clear();
+  descriptionController.clear();
+
+  // Fetch updated items and refresh the UI
+  await _fetchItems();  // Assuming this fetches the latest data
+
+  // Use setState to ensure the UI updates
+  
+
+  // Navigate back to the home page
+  AppRouter.router.pop("/");
   }
 
   @override

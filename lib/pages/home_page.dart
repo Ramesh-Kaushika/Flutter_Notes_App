@@ -80,39 +80,48 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
         title: const Text("Notes App", style: AppTextStyles.appTitle),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: items.isEmpty
-            ? SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: const Center(
-                  child: Text(
-                    "No notes available, click on the + button to add a new note",
-                    style: AppTextStyles.descriptionLargeStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              )
-            : GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: AppConstants.kDefaultPadding,
-                  mainAxisSpacing: AppConstants.kDefaultPadding,
-                  childAspectRatio: 7 / 11,
-                ),
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  return NoteCard(
-                    noteTitle: item.title,
-                    noteContent: item.description,
-                    removeNote: () => _deleteItem(item.id!),
-                    editNote:  () => _updateItem(item),
-                  );
-                },
-              ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.kDefaultPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              items.isEmpty
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: const Center(
+                        child: Text(
+                          "No notes available, click on the + button to add a new note",
+                          style: AppTextStyles.descriptionLargeStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                  : GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: AppConstants.kDefaultPadding,
+                        mainAxisSpacing: AppConstants.kDefaultPadding,
+                        childAspectRatio: 7 / 11,
+                      ),
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        final item = items[index];
+                        return NoteCard(
+                          noteTitle: item.title,
+                          noteContent: item.description,
+                          removeNote: () => _deleteItem(item.id!),
+                          editNote: () => _updateItem(item),
+                        );
+                      },
+                    ),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showItemDialog(),
