@@ -10,30 +10,28 @@ class AppRouter {
     debugLogDiagnostics: true,
     initialLocation: "/",
     routes: [
-        //homepage
-        GoRoute(
-          name: "homepage",
-          path: "/",
-          builder:(context, state) {
-            return const HomePage();
-          },
-          ),
-          // GoRoute(
-          // name: "create_note",
-          // path: "/create_note",
-          // builder:(context, state) {
-          //   return const NotePage();
-          // },
-          // ),
-           GoRoute(
-          name: "create_note",
-          path: "/create_note",
-          builder:(context, state) {
-            return const CreateNotePage();
-          },
-          ),
-
+      //homepage
+      GoRoute(
+        name: "homepage",
+        path: "/",
+        builder: (context, state) {
+          return const HomePage();
+        },
+      ),
+      // GoRoute(
+      // name: "create_note",
+      // path: "/create_note",
+      // builder:(context, state) {
+      //   return const NotePage();
+      // },
+      // ),
+      GoRoute(
+        name: "create_note",
+        path: "/create_note",
+        builder: (context, state) {
+          return const CreateNotePage();
+        },
+      ),
     ],
-    );
-
+  );
 }

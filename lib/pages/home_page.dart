@@ -33,16 +33,16 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _addItem() async {
-    final newItem = Item(
-      title: titleController.text,
-      description: descriptionController.text,
-    );
-    await dbHelper.insertItem(newItem.toMap());
-    titleController.clear();
-    descriptionController.clear();
-    _fetchItems();
-  }
+  // Future<void> _addItem() async {
+  //   final newItem = Item(
+  //     title: titleController.text,
+  //     description: descriptionController.text,
+  //   );
+  //   await dbHelper.insertItem(newItem.toMap());
+  //   titleController.clear();
+  //   descriptionController.clear();
+  //   _fetchItems();
+  // }
 
   Future<void> _updateItem(Item item) async {
     final updatedItem = Item(
@@ -77,6 +77,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: false,
         title: const Text("Notes App", style: AppTextStyles.appTitle),
       ),
