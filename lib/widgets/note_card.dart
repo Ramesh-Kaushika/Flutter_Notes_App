@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/utils/colors.dart';
+import 'package:notes_app/utils/text_styles.dart';
 
 class NoteCard extends StatefulWidget {
   final String noteTitle;
@@ -27,6 +28,7 @@ class _NoteCardState extends State<NoteCard> {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
               IconButton(
@@ -36,13 +38,32 @@ class _NoteCardState extends State<NoteCard> {
                   color: AppColors.kWhiteCardColor.withOpacity(0.5),
                   ),
               ),
+              const SizedBox(
+                width: 10,
+              ),
                IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.delete_outlined,
-                  color: AppColors.kWhiteCardColor.withOpacity(0.5)),
+                  color: AppColors.kWhiteCardColor.withOpacity(0.5),
+                  ),
               ),
-            ])
+            ]),
+            Text(
+              widget.noteTitle,
+              style: AppTextStyles.subTitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+              Text(
+              widget.noteContent,
+              style: AppTextStyles.descriptionSmallStyle.copyWith(
+                color: AppColors.kWhiteCardColor.withOpacity(0.5)
+              ),
+              maxLines: 6,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+            ),
           ],
         ),
       ),

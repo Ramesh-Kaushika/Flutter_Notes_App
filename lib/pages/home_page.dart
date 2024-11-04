@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
               ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _showItemDialog(),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(100)),
             side: BorderSide(
