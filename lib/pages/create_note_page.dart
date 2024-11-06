@@ -8,7 +8,9 @@ import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
 
 class CreateNotePage extends StatefulWidget {
-  const CreateNotePage({super.key});
+  final Item? item; // Optional item parameter for editing
+
+  const CreateNotePage({super.key, this.item});
 
   @override
   State<CreateNotePage> createState() => _CreateNotePageState();
@@ -16,34 +18,47 @@ class CreateNotePage extends StatefulWidget {
 
 class _CreateNotePageState extends State<CreateNotePage> {
   final DatabaseHelper dbHelper = DatabaseHelper();
-  List<Item> items = [];
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  
-  Future<void> _addItem() async {
-      // Clear the form
-  if (kDebugMode) {
-    print("Adding item");
+
+  @override
+  void initState() {
+    super.initState();
+    // If an item is provided, prefill the text controllers for editing
+    if (widget.item != null) {
+      titleController.text = widget.item!.title;
+      descriptionController.text = widget.item!.description;
+    }
   }
 
-  final newItem = Item(
-    title: titleController.text,
-    description: descriptionController.text,
-  );
+  Future<void> _saveNote() async {
+    if (widget.item == null) {
+      // Add new item
+      final newItem = Item(
+        title: titleController.text,
+        description: descriptionController.text,
+      );
+      await dbHelper.insertItem(newItem.toMap());
+    } else {
+      // Update existing item
+      final updatedItem = Item(
+        id: widget.item!.id,
+        title: titleController.text,
+        description: descriptionController.text,
+      );
+      await dbHelper.updateItem(updatedItem.toMap());
+    }
 
-  await dbHelper.insertItem(newItem.toMap());
-
-  // Clear the controllers after adding the item
-  titleController.clear();
-  descriptionController.clear();
-  AppRouter.router.push("/");
+    titleController.clear();
+    descriptionController.clear();
+    AppRouter.router.push("/"); // Navigate to home or refresh
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create Note"),
+        title: Text(widget.item == null ? "Create Note" : "Edit Note"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -54,11 +69,9 @@ class _CreateNotePageState extends State<CreateNotePage> {
                 horizontal: AppConstants.kDefaultPadding / 2,
               ),
               child: Form(
-                // key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Note Title
                     TextFormField(
                       controller: titleController,
                       validator: (value) {
@@ -71,24 +84,22 @@ class _CreateNotePageState extends State<CreateNotePage> {
                       style: const TextStyle(
                         color: AppColors.kWhiteCardColor,
                         fontSize: 30,
-                      ), // Set text color to white
+                      ),
                       decoration: InputDecoration(
                         hintText: "Note Title",
                         hintStyle: TextStyle(
                           color: AppColors.kWhiteCardColor.withOpacity(0.5),
                           fontSize: 35,
-                        ), // Set hint text color to white
-                        border: InputBorder.none, // Remove all borders
+                        ),
+                        border: InputBorder.none,
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                    // Note Content
                     TextFormField(
                       controller: descriptionController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a content';
+                          return 'Please enter content';
                         }
                         return null;
                       },
@@ -103,8 +114,8 @@ class _CreateNotePageState extends State<CreateNotePage> {
                           color: AppColors.kWhiteCardColor.withOpacity(0.5),
                           fontSize: 20,
                           fontWeight: FontWeight.w200,
-                        ), // Set hint text color to white
-                        border: InputBorder.none, // Remove all borders
+                        ),
+                        border: InputBorder.none,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -118,17 +129,17 @@ class _CreateNotePageState extends State<CreateNotePage> {
                       children: [
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: WidgetStateProperty.all(
+                            backgroundColor: MaterialStateProperty.all(
                               AppColors.kFabColor,
                             ),
-                            shape: WidgetStateProperty.all(
+                            shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100),
                               ),
                             ),
                           ),
                           onPressed: () {
-                            _addItem();
+                            _saveNote();
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(10),

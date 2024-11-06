@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
     titleController.clear();
     descriptionController.clear();
     _fetchItems();
+    AppRouter.router.push('/create_note', extra: item); // Pass the Item as an extra
   }
 
   Future<void> _deleteItem(int id) async {

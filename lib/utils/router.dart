@@ -31,7 +31,8 @@ class AppRouter {
         name: "create_note",
         path: "/create_note",
         builder: (context, state) {
-          return const CreateNotePage();
+           final item = state.extra as Item?;
+    return CreateNotePage(item: item); // Pass item if it exists
         },
       ),
     ],
