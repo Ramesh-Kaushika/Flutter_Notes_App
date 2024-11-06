@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: const Center(
                         child: Text(
-                          "No notes available, click on the + button to add a new note121314",
+                          "No notes available, click on the + button to add a new note12131415",
                           style: AppTextStyles.descriptionLargeStyle,
                           textAlign: TextAlign.center,
                         ),
