@@ -76,7 +76,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
                       controller: titleController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a titlee234';
+                          return 'Please enter a titlee2345';
                         }
                         return null;
                       },
