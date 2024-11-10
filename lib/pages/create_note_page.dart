@@ -7,7 +7,7 @@ import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
 
 class CreateNotePage extends StatefulWidget {
-  final Item? item; // Optional item parameter for editing 23456689101112314
+  final Item? item; // Optional item parameter for editing 3456689101112314
 
   const CreateNotePage({super.key, this.item});
 
