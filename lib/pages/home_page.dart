@@ -64,6 +64,38 @@ class _HomePageState extends State<HomePage> {
     AppRouter.router.push("/create_note");
   }
 
+Future<void> _confirmDelete(int id) async {
+  // Show confirmation dialog
+  bool deleteConfirmed = await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Delete Note'),
+        content: const Text('Are you sure you want to delete this note?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false); // Cancel
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true); // Confirm deletion
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      );
+    },
+  ) ?? false; // Provide a default value of false if null
+
+  // If confirmed, delete the item
+  if (deleteConfirmed) {
+    await _deleteItem(id);
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +142,8 @@ class _HomePageState extends State<HomePage> {
                           },
                           noteTitle: item.title,
                           noteContent: item.description,
-                          removeNote: () => _deleteItem(item.id!),
+                          removeNote: () 
+                             => _confirmDelete(item.id!), // Show confirmation dialog
                           editNote: () => _updateItem(item),
                         );
                       },
