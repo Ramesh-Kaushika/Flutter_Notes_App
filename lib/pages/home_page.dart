@@ -71,7 +71,7 @@ Future<void> _confirmDelete(int id) async {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Delete Note',style: AppTextStyles.appTitle,),
-        content: const Text('Are you sure you want to delete this note?',),
+        content: const Text('Are you sure you want to delete this note?',style: AppTextStyles.descriptionSmallStyle,),
         actions: [
           TextButton(
             onPressed: () {
