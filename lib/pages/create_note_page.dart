@@ -30,7 +30,11 @@ class _CreateNotePageState extends State<CreateNotePage> {
     }
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   Future<void> _saveNote() async {
+  // Check if form is valid before saving
+  if (_formKey.currentState?.validate() ?? false) {
     if (widget.item == null) {
       // Add new item
       final newItem = Item(
@@ -48,10 +52,14 @@ class _CreateNotePageState extends State<CreateNotePage> {
       await dbHelper.updateItem(updatedItem.toMap());
     }
 
+    // Clear fields after saving
     titleController.clear();
     descriptionController.clear();
-    AppRouter.router.push("/"); // Navigate to home or refresh
+
+    // Navigate to home or refresh
+    AppRouter.router.push("/");
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +76,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
                 horizontal: AppConstants.kDefaultPadding / 2,
               ),
               child: Form(
+               key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
