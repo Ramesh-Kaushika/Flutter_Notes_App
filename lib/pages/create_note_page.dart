@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/data/item_model.dart';
 import 'package:notes_app/services/database_helper.dart';
